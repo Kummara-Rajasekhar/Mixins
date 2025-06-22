@@ -97,7 +97,7 @@ label {
   color: #1e293b;
 }
 
-/* Animations */
+
 .animate-slide {
   animation: slideUp 0.5s ease-in-out;
 }
@@ -126,7 +126,6 @@ label {
   }
 }
 
-/* Responsive */
 @media (max-width: 600px) {
   .form-box {
     padding: 20px;
