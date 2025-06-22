@@ -9,7 +9,7 @@ const RegistrationForm = () => {
     branch: ''
   });
 
-  
+
   const [age, setAge] = useState('');
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
@@ -154,5 +154,6 @@ const RegistrationForm = () => {
     </div>
   );
 };
+
 
 export default RegistrationForm;
