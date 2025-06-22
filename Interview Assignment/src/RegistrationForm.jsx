@@ -31,17 +31,16 @@ const RegistrationForm = () => {
 
   const validate = () => {
     const err = {};
-
     if (!formData.fullName.trim()) {
       err.fullName = 'Name is required';
     } else if (!/^[a-zA-Z\s]+$/.test(formData.fullName)) {
-      err.fullName = 'Only alphabets are allowed';
+      err.fullName = 'Only alphabets allowed';
     }
 
     if (!formData.dob) {
       err.dob = 'DOB is required';
     } else if (new Date(formData.dob) > new Date()) {
-      err.dob = 'DOB must be a past date';
+      err.dob = 'DOB must be in the past';
     }
 
     if (!formData.address.trim()) {
@@ -64,7 +63,6 @@ const RegistrationForm = () => {
       const calculatedAge = calculateAge(formData.dob);
       setAge(calculatedAge);
       setSubmitted(true);
-      console.log('Submitted Data:', { ...formData, age: calculatedAge });
     }
   };
 
@@ -81,21 +79,19 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className="form-container">
-      <div className="form-card">
-        <h1 className="form-title">Student Registration Form</h1>
+    <div className="form-wrapper">
+      <div className="form-box animate-slide">
+        <h1 className="form-heading">Student Registration</h1>
 
         {submitted ? (
-          <div className="success-message">
-            <div className="check-icon">✔</div>
-            <p className="success-title">Registration Successful!</p>
-            <p className="success-age">Calculated Age: <strong>{age}</strong> years</p>
-            <button onClick={resetForm} className="submit-btn">
-              Register Another
-            </button>
+          <div className="success-message fade-in">
+            <div className="success-icon">✅</div>
+            <h2 className="success-text">Registration Successful!</h2>
+            <p>Calculated Age: <strong>{age}</strong> years</p>
+            <button className="btn" onClick={resetForm}>Register Another</button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="form-fields">
+          <form onSubmit={handleSubmit} className="form-content">
             <div className="form-group">
               <label>Full Name *</label>
               <input
@@ -105,7 +101,7 @@ const RegistrationForm = () => {
                 onChange={handleChange}
                 className={errors.fullName ? 'input error' : 'input'}
               />
-              {errors.fullName && <p className="error-text">{errors.fullName}</p>}
+              {errors.fullName && <span className="error-text">{errors.fullName}</span>}
             </div>
 
             <div className="form-group">
@@ -118,19 +114,19 @@ const RegistrationForm = () => {
                 max={new Date().toISOString().split('T')[0]}
                 className={errors.dob ? 'input error' : 'input'}
               />
-              {errors.dob && <p className="error-text">{errors.dob}</p>}
+              {errors.dob && <span className="error-text">{errors.dob}</span>}
             </div>
 
             <div className="form-group">
               <label>Address *</label>
               <textarea
                 name="address"
+                rows={3}
                 value={formData.address}
                 onChange={handleChange}
-                rows={3}
                 className={errors.address ? 'input error' : 'input'}
               />
-              {errors.address && <p className="error-text">{errors.address}</p>}
+              {errors.address && <span className="error-text">{errors.address}</span>}
             </div>
 
             <div className="form-group">
@@ -147,14 +143,10 @@ const RegistrationForm = () => {
                 <option value="E&TC">Electronics & Telecommunication</option>
                 <option value="Mechanical">Mechanical Engineering</option>
               </select>
-              {errors.branch && <p className="error-text">{errors.branch}</p>}
+              {errors.branch && <span className="error-text">{errors.branch}</span>}
             </div>
 
-            <div>
-              <button type="submit" className="submit-btn">
-                Submit
-              </button>
-            </div>
+            <button type="submit" className="btn">Submit</button>
           </form>
         )}
       </div>
